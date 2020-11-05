@@ -25,6 +25,7 @@ ajaxGet(request, function (response) {
 
   addToCartBtn.addEventListener("click", function(){
     const addedProduct = {
+      key: Date.now(),
       id: id,
       image: productElt.imageUrl,
       name: productElt.name,
