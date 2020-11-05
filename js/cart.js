@@ -79,3 +79,13 @@ emptyCartBtn.addEventListener("click", function(){
   localStorage.removeItem("cart");
 });
 emptyCart.appendChild(emptyCartBtn);
+
+// crée un bouton pour aller au formulaire de commande
+const orderBtn = document.createElement("a");
+orderBtn.className = "btn btn-success";
+orderBtn.textContent = "Order";
+orderBtn.href = "#order";
+orderBtn.role = "button";
+orderBtn.addEventListener("click", function(){});
+if(totalPrice) {order.appendChild(orderBtn)};
+
