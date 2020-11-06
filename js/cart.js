@@ -92,5 +92,6 @@ orderBtn.role = "button";
 orderBtn.addEventListener("click", function(){
   orderForm.style.display = "block";
 });
+// n'affiche le bouton de commande que si le panier n'est pas vide
 if(totalPrice) {order.appendChild(orderBtn)};
 
