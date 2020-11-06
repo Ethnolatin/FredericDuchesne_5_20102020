@@ -5,6 +5,9 @@ const emptyCart = document.getElementById("emptyCart");
 let tr;
 let totalPrice = 0;
 
+// n'affiche pas le formulaire de commande
+orderForm.style.display = "none";
+
 // crée un td et l'intègre au tr
 const generateTd = function(data) {
   const td = document.createElement("td");
@@ -80,12 +83,14 @@ emptyCartBtn.addEventListener("click", function(){
 });
 emptyCart.appendChild(emptyCartBtn);
 
-// crée un bouton pour aller au formulaire de commande
+// crée un bouton pour afficher le formulaire de commande
 const orderBtn = document.createElement("a");
 orderBtn.className = "btn btn-success";
 orderBtn.textContent = "Order";
-orderBtn.href = "#order";
+orderBtn.href = "#orderForm";
 orderBtn.role = "button";
-orderBtn.addEventListener("click", function(){});
+orderBtn.addEventListener("click", function(){
+  orderForm.style.display = "block";
+});
 if(totalPrice) {order.appendChild(orderBtn)};
 
