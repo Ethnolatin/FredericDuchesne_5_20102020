@@ -1,12 +1,18 @@
 // déclaration des variables
-const cartContent = JSON.parse(localStorage.getItem("cart"));
+const cartContent = JSON.parse(localStorage.getItem("cart")) || [];
+const cartEmpty = document.getElementById("cartEmpty");
 const cartTable = document.getElementById("cartTable");
-const emptyCart = document.getElementById("emptyCart");
 let tr;
 let totalPrice = 0;
 
 // n'affiche pas le formulaire de commande
 orderForm.style.display = "none";
+
+// change le titre si panier non vide
+if(cartContent.length != 0) {
+  cartEmpty.textContent = "Contenu de votre panier :";
+
+}
 
 // crée un td et l'intègre au tr
 const generateTd = function(data, align) {
@@ -20,7 +26,7 @@ const generateTd = function(data, align) {
 function generateTdDelete(key) {
   const tdDeleteBtn = document.createElement("td");
   const deleteBtn = document.createElement("a");
-  deleteBtn.className = "btn btn-warning";
+  deleteBtn.className = "btn btn-warning float-right";
   deleteBtn.textContent = "Supprimer";
   deleteBtn.href = "../html/cart.html";
   deleteBtn.role = "button";
@@ -30,7 +36,25 @@ function generateTdDelete(key) {
   deleteBtn.addEventListener("click", function(){
     const newCartContent = cartContent.filter(item => item.key != deleteBtn.id);
     localStorage.setItem("cart", JSON.stringify(newCartContent));
-  })
+  });
+}
+
+
+// crée un bouton pour vider le panier
+function generateTdEmptyCart() {
+  const tdEmptyCartBtn = document.createElement("td");
+  const emptyCartBtn = document.createElement("a");
+  emptyCartBtn.className = "btn btn-danger float-right";
+  emptyCartBtn.textContent = "Vider le panier";
+  emptyCartBtn.href = "../html/cart.html";
+  emptyCartBtn.role = "button";
+  tdEmptyCartBtn.appendChild(emptyCartBtn);
+  if(totalPrice) {
+    tr.appendChild(tdEmptyCartBtn);
+    emptyCartBtn.addEventListener("click", function(){
+      localStorage.removeItem("cart");
+    });
+  }
 }
 
 
@@ -70,19 +94,10 @@ tr = document.createElement("tr");
 generateTd("Total");
 generateTd("");
 generateTd(totalPrice.toFixed(2)+" €", "right");
-cartTable.appendChild(tr);
-
-
-// crée un bouton pour vider le panier
-const emptyCartBtn = document.createElement("a");
-emptyCartBtn.className = "btn btn-danger";
-emptyCartBtn.textContent = "Vider le panier";
-emptyCartBtn.href = "../html/cart.html";
-emptyCartBtn.role = "button";
-emptyCartBtn.addEventListener("click", function(){
-  localStorage.removeItem("cart");
-});
-emptyCart.appendChild(emptyCartBtn);
+generateTdEmptyCart();
+if(totalPrice) {
+  cartTable.appendChild(tr);
+}
 
 // crée un bouton pour afficher le formulaire de commande
 const orderBtn = document.createElement("a");

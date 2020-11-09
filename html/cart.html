@@ -37,15 +37,13 @@
 
   <main class="container">
     <section class="container">
+      <h1 id="cartEmpty" class="h2">Votre panier est vide</h1>
       <div class="row">
-        <h1 class="h2">Contenu du panier</h1>
         <table class="table">
-          <tbody id="cartTable">
-          </tbody>
+          <tbody id="cartTable"></tbody>
         </table>      
       </div>
       <div class="row">
-        <div class="col" id="emptyCart"></div>
         <div class="col" id="order"></div>
       </div>
     </section>
@@ -67,28 +65,18 @@
         </div>
         <div class="row">
           <div class="form-group col-md-6">
+            <label for="address">Adresse</label>
+            <input type="text" class="form-control" id="address" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="city">Ville</label>
+            <input type="text" class="form-control" id="city" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
             <label for="email">e-mail</label>
             <input type="email" class="form-control" id="email" required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label for="address">Adresse</label>
-            <input type="text" class="form-control" id="address" placeholder="N° et rue" required>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="address2">Complément d'adresse</label>
-            <input type="text" class="form-control" id="address2" placeholder="Résidence, appartement, étage">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-2">
-            <label for="zip">CP</label>
-            <input type="number" class="form-control" id="zip" required>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="city">Commune</label>
-            <input type="text" class="form-control" id="city" required>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
