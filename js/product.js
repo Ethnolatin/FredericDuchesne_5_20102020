@@ -13,7 +13,7 @@ ajaxGet(request)
   .then(function(productElt) {
     productImage.src = productElt.imageUrl;
     productName.textContent = productElt.name;
-    productPrice.textContent = "€ "+(productElt.price/100).toFixed(2);
+    productPrice.textContent = (productElt.price/100).toFixed(2) + " €";
     productDescription.textContent = productElt.description;
     const varnishes = productElt.varnish;
     varnishes.forEach(function (varnishOption) {
@@ -31,7 +31,7 @@ ajaxGet(request)
         price: productElt.price/100}
       cartContent.push(addedProduct);
       localStorage.setItem("cart", JSON.stringify(cartContent));
-      alert("Product added to cart");
+      alert("Produit ajouté au panier");
     });
   })
   .catch(function(err) {

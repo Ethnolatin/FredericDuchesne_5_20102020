@@ -9,9 +9,10 @@ let totalPrice = 0;
 orderForm.style.display = "none";
 
 // crée un td et l'intègre au tr
-const generateTd = function(data) {
+const generateTd = function(data, align) {
   const td = document.createElement("td");
   td.textContent = data;
+  td.className = "text-"+align;
   tr.appendChild(td);
 }
 
@@ -20,7 +21,7 @@ function generateTdDelete(key) {
   const tdDeleteBtn = document.createElement("td");
   const deleteBtn = document.createElement("a");
   deleteBtn.className = "btn btn-warning";
-  deleteBtn.textContent = "Delete";
+  deleteBtn.textContent = "Supprimer";
   deleteBtn.href = "../html/cart.html";
   deleteBtn.role = "button";
   deleteBtn.id = key;
@@ -39,7 +40,7 @@ if (cartContent) {
     // crée une ligne (tr)
     tr = document.createElement("tr");
 
-    // calcule le prix total
+    // calcule le prix total du panier
     totalPrice += product.price;
     // crée une td avec l'image et l'intègre au tr
     const tdImage = document.createElement("td");
@@ -50,10 +51,10 @@ if (cartContent) {
     tr.appendChild(tdImage);
 
     // crée une td avec le nom et l'intègre au tr
-    generateTd(product.name);
+    generateTd(product.name, "left");
 
     // crée une td avec le prix et l'intègre au tr
-    generateTd("€ "+(product.price).toFixed(2));
+    generateTd((product.price).toFixed(2)+" €", "right");
 
     // crée une td avec un bouton delete et l'intègre au tr
     generateTdDelete(product.key);
@@ -68,14 +69,14 @@ if (cartContent) {
 tr = document.createElement("tr");
 generateTd("Total");
 generateTd("");
-generateTd("€ "+totalPrice.toFixed(2));
+generateTd(totalPrice.toFixed(2)+" €", "right");
 cartTable.appendChild(tr);
 
 
 // crée un bouton pour vider le panier
 const emptyCartBtn = document.createElement("a");
 emptyCartBtn.className = "btn btn-danger";
-emptyCartBtn.textContent = "Empty cart";
+emptyCartBtn.textContent = "Vider le panier";
 emptyCartBtn.href = "../html/cart.html";
 emptyCartBtn.role = "button";
 emptyCartBtn.addEventListener("click", function(){
@@ -86,7 +87,7 @@ emptyCart.appendChild(emptyCartBtn);
 // crée un bouton pour afficher le formulaire de commande
 const orderBtn = document.createElement("a");
 orderBtn.className = "btn btn-success";
-orderBtn.textContent = "Order";
+orderBtn.textContent = "Commander";
 orderBtn.href = "#orderForm";
 orderBtn.role = "button";
 orderBtn.addEventListener("click", function(){
