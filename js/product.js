@@ -6,14 +6,17 @@ const productName = document.getElementById("name");
 const productPrice = document.getElementById("price");
 const productDescription = document.getElementById("description");
 const varnish = document.getElementById("varnish");
+const varnishMissing = document.getElementById("varnishMissing");
 const addToCartBtn = document.getElementById("addToCart");
 var cartContent = JSON.parse(localStorage.getItem("cart")) || [];
+varnishMissing.style.display = "none";
+
 
 ajaxGet(request)
   .then(function(productElt) {
     productImage.src = productElt.imageUrl;
     productName.textContent = productElt.name;
-    productPrice.textContent = (productElt.price/100).toFixed(2) + " €";
+    productPrice.textContent = (productElt.price/100).toFixed(2) + "€";
     productDescription.textContent = productElt.description;
     const varnishes = productElt.varnish;
     varnishes.forEach(function (varnishOption) {
@@ -23,15 +26,22 @@ ajaxGet(request)
       varnish.appendChild(varnishElt);
     });
     addToCartBtn.addEventListener("click", function(){
-      const addedProduct = {
-        key: Date.now(),
-        id: id,
-        image: productElt.imageUrl,
-        name: productElt.name,
-        price: productElt.price/100}
+      if(varnish.value == "choisissez...") {
+        varnishMissing.style.display = "block";
+      } else {
+        varnishMissing.style.display = "none";
+        const addedProduct = {
+          key: Date.now(),
+          id: id,
+          image: productElt.imageUrl,
+          name: productElt.name,
+          price: productElt.price/100,
+          option: varnish.value
+        }
       cartContent.push(addedProduct);
       localStorage.setItem("cart", JSON.stringify(cartContent));
       alert("Produit ajouté au panier");
+      }
     });
   })
   .catch(function(err) {

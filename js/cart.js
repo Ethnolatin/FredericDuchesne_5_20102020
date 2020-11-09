@@ -11,10 +11,9 @@ orderForm.style.display = "none";
 // change le titre si panier non vide
 if(cartContent.length != 0) {
   cartEmpty.textContent = "Contenu de votre panier :";
-
 }
 
-// crée un td et l'intègre au tr
+// crée une td et l'intègre au tr
 const generateTd = function(data, align) {
   const td = document.createElement("td");
   td.textContent = data;
@@ -75,10 +74,10 @@ if (cartContent) {
     tr.appendChild(tdImage);
 
     // crée une td avec le nom et l'intègre au tr
-    generateTd(product.name, "left");
+    generateTd(product.name+" ("+product.option+")");
 
     // crée une td avec le prix et l'intègre au tr
-    generateTd((product.price).toFixed(2)+" €", "right");
+    generateTd((product.price).toFixed(2)+"€", "right");
 
     // crée une td avec un bouton delete et l'intègre au tr
     generateTdDelete(product.key);
@@ -93,7 +92,7 @@ if (cartContent) {
 tr = document.createElement("tr");
 generateTd("Total");
 generateTd("");
-generateTd(totalPrice.toFixed(2)+" €", "right");
+generateTd(totalPrice.toFixed(2)+"€", "right");
 generateTdEmptyCart();
 if(totalPrice) {
   cartTable.appendChild(tr);
