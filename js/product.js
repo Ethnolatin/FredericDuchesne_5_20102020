@@ -8,7 +8,7 @@ const productDescription = document.getElementById("description");
 const varnish = document.getElementById("varnish");
 const varnishMissing = document.getElementById("varnishMissing");
 const addToCartBtn = document.getElementById("addToCart");
-var cartContent = JSON.parse(localStorage.getItem("cart")) || [];
+const cartContent = JSON.parse(localStorage.getItem("cart")) || [];
 varnishMissing.style.display = "none";
 
 

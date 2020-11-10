@@ -2,7 +2,7 @@ const listElt = document.getElementById("furnitures");
 
 ajaxGet("http://localhost:3000/api/furniture")
 	.then(function (furnitures) {
-		// Affiche le nom de chaque meuble dans une liste
+		// Affiche l'image et le nom de chaque meuble dans une liste
 		furnitures.forEach(function (furniture) {
 			const furnitureElt = document.createElement("a");
 			const furnitureImage = document.createElement("img");
@@ -20,6 +20,5 @@ ajaxGet("http://localhost:3000/api/furniture")
 		});
 	})
 	.catch(function(err) {
-		console.error("Erreur réseau");
-		alert("Erreur réseau")
+		alert(err)
 	});

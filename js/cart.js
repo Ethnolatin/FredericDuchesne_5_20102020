@@ -94,6 +94,7 @@ generateTd("Total");
 generateTd("");
 generateTd(totalPrice.toFixed(2)+"€", "right");
 generateTdEmptyCart();
+// n'affiche cette ligne que si le panier n'est pas vide (prix total > 0)
 if(totalPrice) {
   cartTable.appendChild(tr);
 }
@@ -107,6 +108,6 @@ orderBtn.role = "button";
 orderBtn.addEventListener("click", function(){
   orderForm.style.display = "block";
 });
-// n'affiche le bouton de commande que si le panier n'est pas vide
+// n'affiche le bouton de commande que si le panier n'est pas vide (prix total > 0)
 if(totalPrice) {order.appendChild(orderBtn)};
 
