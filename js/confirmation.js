@@ -2,7 +2,7 @@ const urlData = location.search.substring(1);
 
 // extrait les paires nom=valeur de l'url
 function getDataFromUrl(url) {
-  // sépare les paires nom=valeur
+  // sépare les paires "nom=valeur"
   const orderDataPairs = urlData.split('&');
   // extrait les deux éléments de chaque paire et affecte la valeur (2e élément) au nom (1er élément)
   let orderData = {};
@@ -13,7 +13,7 @@ function getDataFromUrl(url) {
   return orderData;
  }
  
- // récupère les données de la commande dans l'URL de la page
+ // récupère les infos liées à la commande dans l'URL de la page
  const orderData = getDataFromUrl(urlData);
 
  // affiche les données sur la page

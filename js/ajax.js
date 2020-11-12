@@ -1,10 +1,10 @@
 // Exécute un appel AJAX GET
 
 function ajaxGet(url) {
-	return new Promise(function(resolve, reject){
+	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 		request.open("GET", url);
-		request.onreadystatechange = function() {
+		request.onreadystatechange = () => {
 			if (request.readyState === 4) {
 				if (request.status >= 200 && request.status < 400) {
 					resolve(JSON.parse(request.responseText));
@@ -21,12 +21,13 @@ function ajaxGet(url) {
 // Exécute un appel AJAX POST
 
 function ajaxPost(url, data) {
-	return new Promise(function(resolve, reject){
+	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 		request.open("POST", url);
-		request.onreadystatechange = function() {
+		request.onreadystatechange = () => {
 			if (request.readyState === 4) {
 				if (request.status >= 200 && request.status < 400) {
+					alert("resolve ok");
 					resolve(JSON.parse(request.responseText));
 				} else {
 					reject(request.status + " " + request.statusText + " " + url);

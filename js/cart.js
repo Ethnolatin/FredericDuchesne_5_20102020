@@ -12,16 +12,16 @@ let totalPrice = 0;
 // n'affiche pas le formulaire de commande
 orderFormContainer.style.display = "none";
 
-// change le titre si panier non vide
+// si le panier n'est pas vide, change le titre
 if(cartContent.length != 0) {
   cartEmpty.textContent = "Contenu de votre panier :";
 }
 
 // crée une cellule et l'intègre à la ligne
-const generateTd = function(data, align) {
+const generateTd = (data, align) => {
   const td = document.createElement("td");
   td.textContent = data;
-  td.className = "text-"+align;
+  td.className = "text-" + align;
   tr.appendChild(td);
 }
 
@@ -36,10 +36,10 @@ function generateTdDelete(key) {
   deleteBtn.id = key;
   tdDeleteBtn.appendChild(deleteBtn);
   tr.appendChild(tdDeleteBtn);
-  deleteBtn.addEventListener("click", function(){
-    const newCartContent = cartContent.filter(item => item.key != deleteBtn.id);
-    localStorage.setItem("cart", JSON.stringify(newCartContent));
-  });
+  deleteBtn.addEventListener("click", () => {
+      const newCartContent = cartContent.filter(item => item.key != deleteBtn.id);
+      localStorage.setItem("cart", JSON.stringify(newCartContent));
+    });
 }
 
 // crée un bouton pour vider le panier
@@ -53,7 +53,7 @@ function generateTdEmptyCart() {
   tdEmptyCartBtn.appendChild(emptyCartBtn);
   if(totalPrice) {
     tr.appendChild(tdEmptyCartBtn);
-    emptyCartBtn.addEventListener("click", function(){
+    emptyCartBtn.addEventListener("click", () => {
       localStorage.removeItem("cart");
     });
   }
@@ -62,10 +62,8 @@ function generateTdEmptyCart() {
 // génère la liste de produits dans le panier
 if (cartContent) {
   cartContent.forEach(product => {
-
     // crée une ligne
     tr = document.createElement("tr");
-
     // crée une cellule avec l'image et l'intègre à la ligne
     const tdImage = document.createElement("td");
     const productImage = document.createElement("img");
@@ -73,22 +71,16 @@ if (cartContent) {
     productImage.width = 50;
     tdImage.appendChild(productImage);
     tr.appendChild(tdImage);
-
     // crée une cellule avec le nom et l'intègre à la ligne
     generateTd(product.name+" ("+product.option+")");
-
     // crée une cellule avec le prix et l'intègre à la ligne
     generateTd((product.price).toFixed(2)+"€", "right");
-
     // crée une cellule avec un bouton delete et l'intègre à la ligne
     generateTdDelete(product.key);
-
     // intègre la ligne au tableau
     cartTable.appendChild(tr);
-
     // met à jour le montant du panier
     totalPrice += product.price;
-
   });
 }
 
@@ -99,8 +91,7 @@ generateTd("");
 generateTd(totalPrice.toFixed(2)+"€", "right");
 generateTdEmptyCart();
 // n'affiche cette ligne que si le panier n'est pas vide (prix total > 0)
-if(totalPrice) {cartTable.appendChild(tr);
-}
+if(totalPrice) {cartTable.appendChild(tr)};
 
 // crée un bouton pour afficher le formulaire de commande
 const orderBtn = document.createElement("a");
@@ -108,7 +99,7 @@ orderBtn.className = "btn btn-success";
 orderBtn.textContent = "Commander";
 orderBtn.href = "#orderFormContainer";
 orderBtn.role = "button";
-orderBtn.addEventListener("click", function(){
+orderBtn.addEventListener("click", () => {
   orderFormContainer.style.display = "block";
 });
 // n'affiche ce bouton que si le panier n'est pas vide (prix total > 0)
@@ -125,8 +116,8 @@ const contact = {
 
 // génère le tableau products à envoyer au serveur
 const products = []
-cartContent.forEach(function(product){
-  products.push(product.id)
+cartContent.forEach((product) => {
+  products.push(product.id);
 });
 
 // génère le corps de la requête au serveur
@@ -135,22 +126,21 @@ const orderData = {
   products: products
 };
 
-
 // validation du formulaire de commande
-submitBtn.addEventListener("click", function(){
+submitBtn.addEventListener("click", () => {
   // si les champs sont validés, envoyer la requête au serveur
-  if(orderForm.reportValidity()) {
+  if (orderForm.checkValidity()) {
+    alert("validity: " + orderForm.checkValidity());
     ajaxPost("http://localhost:3000/api/furniture/order", orderData)
-      .then(function (response) {
+      .then((response) => {
         // efface le contenu du panier
-        localStorage.removeItem("cart");
+        // localStorage.removeItem("cart");
         // affiche la page confirmation
-        const redirect = "../html/confirmation.html?id="+response.orderId+"&price="+totalPrice;
-        location = redirect;
+        location = "../html/confirmation.html?id=" + response.orderId + "&price=" + totalPrice;
       })
-      .catch(function(err) {
-        alert(err)
+      .catch((err) => {
+        alert(err);
       });
-    return false;
+    alert("fin de if")
   };
 })
