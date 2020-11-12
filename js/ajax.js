@@ -27,7 +27,7 @@ function ajaxPost(url, data) {
 		request.onreadystatechange = () => {
 			if (request.readyState === 4) {
 				if (request.status >= 200 && request.status < 400) {
-					alert("resolve ok");
+					// alert("resolve ok");
 					resolve(JSON.parse(request.responseText));
 				} else {
 					reject(request.status + " " + request.statusText + " " + url);

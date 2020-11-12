@@ -130,17 +130,17 @@ const orderData = {
 submitBtn.addEventListener("click", () => {
   // si les champs sont validés, envoyer la requête au serveur
   if (orderForm.checkValidity()) {
-    alert("validity: " + orderForm.checkValidity());
+    // alert("validity: " + orderForm.checkValidity());
     ajaxPost("http://localhost:3000/api/furniture/order", orderData)
       .then((response) => {
         // efface le contenu du panier
-        // localStorage.removeItem("cart");
+        localStorage.removeItem("cart");
         // affiche la page confirmation
         location = "../html/confirmation.html?id=" + response.orderId + "&price=" + totalPrice;
       })
       .catch((err) => {
         alert(err);
       });
-    alert("fin de if")
+    // alert("fin de if");
   };
 })
