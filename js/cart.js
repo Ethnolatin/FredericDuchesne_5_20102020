@@ -2,18 +2,22 @@
 const cartContent = JSON.parse(localStorage.getItem("cart")) || [];
 const cartEmpty = document.getElementById("cartEmpty");
 const cartTable = document.getElementById("cartTable");
+const orderFormContainer = document.getElementById("orderFormContainer");
+const orderForm = document.getElementById("orderForm");
+const submitBtn = document.getElementById("submitBtn");
 let tr;
 let totalPrice = 0;
 
+
 // n'affiche pas le formulaire de commande
-orderForm.style.display = "none";
+orderFormContainer.style.display = "none";
 
 // change le titre si panier non vide
 if(cartContent.length != 0) {
   cartEmpty.textContent = "Contenu de votre panier :";
 }
 
-// crée une td et l'intègre au tr
+// crée une cellule et l'intègre à la ligne
 const generateTd = function(data, align) {
   const td = document.createElement("td");
   td.textContent = data;
@@ -38,7 +42,6 @@ function generateTdDelete(key) {
   });
 }
 
-
 // crée un bouton pour vider le panier
 function generateTdEmptyCart() {
   const tdEmptyCartBtn = document.createElement("td");
@@ -56,16 +59,14 @@ function generateTdEmptyCart() {
   }
 }
 
-
-// si existant, prend chaque élément du panier un par un
+// génère la liste de produits dans le panier
 if (cartContent) {
   cartContent.forEach(product => {
-    // crée une ligne (tr)
+
+    // crée une ligne
     tr = document.createElement("tr");
 
-    // calcule le prix total du panier
-    totalPrice += product.price;
-    // crée une td avec l'image et l'intègre au tr
+    // crée une cellule avec l'image et l'intègre à la ligne
     const tdImage = document.createElement("td");
     const productImage = document.createElement("img");
     productImage.src = product.image;
@@ -73,41 +74,83 @@ if (cartContent) {
     tdImage.appendChild(productImage);
     tr.appendChild(tdImage);
 
-    // crée une td avec le nom et l'intègre au tr
+    // crée une cellule avec le nom et l'intègre à la ligne
     generateTd(product.name+" ("+product.option+")");
 
-    // crée une td avec le prix et l'intègre au tr
+    // crée une cellule avec le prix et l'intègre à la ligne
     generateTd((product.price).toFixed(2)+"€", "right");
 
-    // crée une td avec un bouton delete et l'intègre au tr
+    // crée une cellule avec un bouton delete et l'intègre à la ligne
     generateTdDelete(product.key);
 
-    // intègre le tr au tableau
+    // intègre la ligne au tableau
     cartTable.appendChild(tr);
+
+    // met à jour le montant du panier
+    totalPrice += product.price;
 
   });
 }
 
-// indique le prix total
+// crée la ligne avec le montant du panier
 tr = document.createElement("tr");
 generateTd("Total");
 generateTd("");
 generateTd(totalPrice.toFixed(2)+"€", "right");
 generateTdEmptyCart();
 // n'affiche cette ligne que si le panier n'est pas vide (prix total > 0)
-if(totalPrice) {
-  cartTable.appendChild(tr);
+if(totalPrice) {cartTable.appendChild(tr);
 }
 
 // crée un bouton pour afficher le formulaire de commande
 const orderBtn = document.createElement("a");
 orderBtn.className = "btn btn-success";
 orderBtn.textContent = "Commander";
-orderBtn.href = "#orderForm";
+orderBtn.href = "#orderFormContainer";
 orderBtn.role = "button";
 orderBtn.addEventListener("click", function(){
-  orderForm.style.display = "block";
+  orderFormContainer.style.display = "block";
 });
-// n'affiche le bouton de commande que si le panier n'est pas vide (prix total > 0)
+// n'affiche ce bouton que si le panier n'est pas vide (prix total > 0)
 if(totalPrice) {order.appendChild(orderBtn)};
 
+// génère l'objet contact à envoyer au serveur
+const contact = {
+  firstName: document.getElementById("firstName"),
+  lastName: document.getElementById("lastName"),
+  address: document.getElementById("address"),
+  city: document.getElementById("city"),
+  email: document.getElementById("email")
+};
+
+// génère le tableau products à envoyer au serveur
+const products = []
+cartContent.forEach(function(product){
+  products.push(product.id)
+});
+
+// génère le corps de la requête au serveur
+const orderData = {
+  contact: contact,
+  products: products
+};
+console.log(orderData)
+
+
+// validation du formulaire de commande
+submitBtn.addEventListener("click", function(){
+  // si les champs sont validés, envoyer la requête au serveur
+  if(orderForm.reportValidity()) {
+    ajaxPost("http://localhost:3000/api/furniture/order", orderData)
+      .then(function (response) {
+        // efface le contenu du panier
+        localStorage.removeItem("cart");
+        // affiche la page confirmation
+        const redirect = "../html/confirmation.html?id="+response.orderId+"&price="+totalPrice;
+        location = redirect;
+      })
+      .catch(function(err) {
+        alert(err)
+      });
+  };
+})
