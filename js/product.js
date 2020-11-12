@@ -1,4 +1,4 @@
-const param = window.location.search;
+const param = location.search;
 const id = param.substring(4);
 const request = "http://localhost:3000/api/furniture/"+id;
 const productImage = document.getElementsByTagName("img")[0];
