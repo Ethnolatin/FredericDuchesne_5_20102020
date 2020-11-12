@@ -134,7 +134,6 @@ const orderData = {
   contact: contact,
   products: products
 };
-console.log(orderData)
 
 
 // validation du formulaire de commande
@@ -152,5 +151,6 @@ submitBtn.addEventListener("click", function(){
       .catch(function(err) {
         alert(err)
       });
+    return false;
   };
 })
