@@ -7,10 +7,6 @@ const productDescription = document.getElementById("description");
 const varnish = document.getElementById("varnish");
 const varnishMissing = document.getElementById("varnishMissing");
 const addToCartBtn = document.getElementById("addToCart");
-const cartContent = JSON.parse(localStorage.getItem("cart")) || [];
-
-// n'affiche pas le message concernant l'option manquante
-varnishMissing.style.display = "none";
 
 ajaxGet(request)
   .then((productElt) => {
@@ -38,9 +34,10 @@ ajaxGet(request)
           price: productElt.price / 100,
           option: varnish.value
         };
-      cartContent.push(addedProduct);
-      localStorage.setItem("cart", JSON.stringify(cartContent));
-      alert("Produit ajouté au panier");
+        const cartContent = JSON.parse(localStorage.getItem("cart"));
+        cartContent.push(addedProduct);
+        localStorage.setItem("cart", JSON.stringify(cartContent));
+        alert("Produit ajouté au panier");
       };
     });
   })
