@@ -1,6 +1,6 @@
 # Orinoco #
 
-This is the back end server for Project 5 of the Junior Web Developer path.
+## "Construisez un site e-commerce" ##
 
 ### Prerequisites ###
 
