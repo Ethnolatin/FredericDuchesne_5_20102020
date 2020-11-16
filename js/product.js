@@ -34,7 +34,7 @@ ajaxGet(request)
           price: productElt.price / 100,
           option: varnish.value
         };
-        const cartContent = JSON.parse(localStorage.getItem("cart"));
+        let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
         cartContent.push(addedProduct);
         localStorage.setItem("cart", JSON.stringify(cartContent));
         alert("Produit ajouté au panier");

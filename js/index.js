@@ -1,5 +1,4 @@
 const listElt = document.getElementById("furnitures");
-localStorage.setItem("cart","[]");
 
 ajaxGet("http://localhost:3000/api/furniture")
 	.then((furnitures) => {
