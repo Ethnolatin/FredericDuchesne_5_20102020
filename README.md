@@ -1,6 +1,6 @@
 # Projet P5 parcours Dev Web OpenClassrooms #
 
-"Construisez un site e-commerce"
+## "Construisez un site e-commerce" ##
 
 ### Prérequis ###
 

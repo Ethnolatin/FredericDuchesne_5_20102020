@@ -1,7 +1,7 @@
-const urlData = location.search.substring(1);
+const urlData = window.location.search.substring(1);
 
 // extrait les paires nom=valeur de l'url
-function getDataFromUrl(url) {
+const getDataFromUrl = (url) => {
   // sépare les paires "nom=valeur"
   const orderDataPairs = urlData.split('&');
   // extrait les deux éléments de chaque paire et affecte la valeur (2e élément) au nom (1er élément)
@@ -17,7 +17,11 @@ function getDataFromUrl(url) {
  const orderData = getDataFromUrl(urlData);
 
  // affiche les données sur la page
- const orderNumber = document.getElementById("orderNumber");
- const orderAmount = document.getElementById("orderAmount");
- orderNumber.textContent += orderData.id;
- orderAmount.textContent += Number(orderData.price).toFixed(2)+"€";
+ const displayData = () => {
+  const orderNumber = document.getElementById("orderNumber");
+  const orderAmount = document.getElementById("orderAmount");
+  orderNumber.textContent += orderData.id;
+  orderAmount.textContent += Number(orderData.price).toFixed(2)+"€";
+ }
+
+ displayData()

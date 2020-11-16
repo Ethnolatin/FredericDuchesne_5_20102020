@@ -72,7 +72,6 @@ const generateTd = (data, align) => {
 const displayCartContent = () => {
   totalPrice = 0;
   let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
-  console.log(cartContent)
   // réinitialise l'affichage de la liste des produits dans le panier
   while (cartTable.firstChild) {
     cartTable.removeChild(cartTable.lastChild);
@@ -110,7 +109,6 @@ const displayCartContent = () => {
 
 // si le panier n'est pas vide, affiche le total et le bouton pour vider le panier
 const displayLastRow = () => {
-  console.log(totalPrice)
   if(totalPrice) {
     // génère le total
     tr = document.createElement("tr");
@@ -151,7 +149,7 @@ const orderData = {
 
 // validation du formulaire de commande
 const validateOrder = () => {
-  submitBtn.addEventListener("click", () => {
+  submitBtn.addEventListener("click", (event) => {
     // si les champs sont validés, envoyer la requête au serveur
     if (orderForm.checkValidity()) {
       ajaxPost("http://localhost:3000/api/furniture/order", orderData)
@@ -164,7 +162,7 @@ const validateOrder = () => {
         .catch((err) => {
           alert(err);
         });
-      // alert("fin de if");
+      event.preventDefault();
     };
   });
 };
