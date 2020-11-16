@@ -1,19 +1,18 @@
-# Orinoco #
+# Projet P5 parcours Dev Web OpenClassrooms #
 
-This is the back end server for Project 5 of the Junior Web Developer path.
+"Construisez un site e-commerce"
 
-### Prerequisites ###
+### Prérequis ###
 
-You will need to have Node and `npm` installed locally on your machine.
+Node et `npm` doivent être installés en local.
 
 ### Installation ###
 
-Clone this repo. From within the project folder, run `npm install`. You 
-can then run the server with `node server`. 
-The server should run on `localhost` with default port `3000`. If the
-server runs on another port for any reason, this is printed to the
-console when the server starts, e.g. `Listening on port 3001`.
+Cloner ce repo. Lancer `npm install` depuis le dossier du projet. 
 
-### Website ###
+Lancer le serveur avec `node server`. Il doit tourner par défaut en `localhost` sur le port `3000`.
 
-The website is available here: https://ethnolatin.github.io/FredericDuchesne_5_20102020/index.html
+### Page web ###
+
+La page web correspondante est disponible ici: https://ethnolatin.github.io/FredericDuchesne_5_20102020/index.html
+
