@@ -1,3 +1,7 @@
 #varnishMissing, #order, #orderFormContainer {
   display: none;
 }
+
+#submitBtn {
+  margin-bottom: 2rem;
+}

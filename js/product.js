@@ -6,10 +6,11 @@ const productDescription = document.getElementById("description");
 const varnish = document.getElementById("varnish");
 const varnishMissing = document.getElementById("varnishMissing");
 const addToCartBtn = document.getElementById("addToCart");
+let id;
 
 // extrait la partie data de l'url et supprime "?id=" pour ne garder que l'id du produit
 const request = () => {
-  const id = window.location.search.substring(4);
+  id = window.location.search.substring(4);
   const requestUrl = "http://localhost:3000/api/furniture/"+id;
   return requestUrl;
 }

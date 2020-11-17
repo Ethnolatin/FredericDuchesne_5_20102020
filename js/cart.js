@@ -1,16 +1,17 @@
 // déclaration des variables
 const cartStatus = document.getElementById("cartStatus");
 const cartTable = document.getElementById("cartTable");
+const order = document.getElementById("order");
 const orderFormContainer = document.getElementById("orderFormContainer");
 const orderForm = document.getElementById("orderForm");
 const submitBtn = document.getElementById("submitBtn");
 let totalPrice;
-let tr;
+let tableRow;
 
 // crée un bouton
-const generateBtn = (txt, color, key) => {
+const generateBtn = (txt, color, side, key) => {
   const btn = document.createElement("a");
-  btn.className = "btn btn-"+color+" float-right";
+  btn.className = "btn btn-" + color + " float-" + side;
   btn.textContent = txt;
   btn.role = "button";
   btn.id = key;
@@ -18,11 +19,12 @@ const generateBtn = (txt, color, key) => {
 }
 
 // crée un bouton pour supprimer un article
-const generateTdDelete = (key) => {
-  const tdDeleteBtn = document.createElement("td");
-  const deleteBtn = generateBtn("Supprimer", "warning", key)
-  tdDeleteBtn.appendChild(deleteBtn);
-  tr.appendChild(tdDeleteBtn);
+const generateCellDelete = (key) => {
+  const deleteBtnCell = document.createElement("div");
+  deleteBtnCell.className = "col-5 col-sm-3";
+  const deleteBtn = generateBtn("Supprimer", "warning", "right", key)
+  deleteBtnCell.appendChild(deleteBtn);
+  tableRow.appendChild(deleteBtnCell);
   deleteBtn.addEventListener("click", () => {
     let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
     const newCartContent = cartContent.filter(item => item.key != key);
@@ -33,12 +35,13 @@ const generateTdDelete = (key) => {
 }
 
 // crée un bouton pour vider le panier
-const generateTdEmptyCart = () => {
-  const tdEmptyCartBtn = document.createElement("td");
-  const emptyCartBtn = generateBtn("Vider le panier", "danger")
-  tdEmptyCartBtn.appendChild(emptyCartBtn);
+const generateCellEmptyCart = () => {
+  const emptyCartBtnCell = document.createElement("div");
+  emptyCartBtnCell.className = ("col-5 col-sm-3")
+  const emptyCartBtn = generateBtn("Vider le panier", "danger", "right")
+  emptyCartBtnCell.appendChild(emptyCartBtn);
   if(totalPrice) {
-    tr.appendChild(tdEmptyCartBtn);
+    tableRow.appendChild(emptyCartBtnCell);
     emptyCartBtn.addEventListener("click", () => {
       localStorage.setItem("cart", "[]");
       displayCartContent();
@@ -61,16 +64,16 @@ const createOrderBtn = () => {
 }
 
 // crée une cellule et l'intègre à la ligne
-const generateTd = (data, align) => {
-  const td = document.createElement("td");
-  td.textContent = data;
-  td.className = "text-" + align;
-  tr.appendChild(td);
+const generateCell = (data, size, align) => {
+  const tableCell = document.createElement("div");
+  tableCell.textContent = data;
+  tableCell.className = "col-" + size +" text-" + align;
+  tableRow.appendChild(tableCell);
 }
 
 // si le panier n'est pas vide, affiche son contenu
 const displayCartContent = () => {
-  // réinitialise l'affichage de la liste des produits dans le panier
+  // réinitialise l'affichage
   while (cartTable.firstChild) {
     cartTable.removeChild(cartTable.lastChild);
   }
@@ -79,25 +82,31 @@ const displayCartContent = () => {
   let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
   // si le panier n'est pas vide
   if (cartContent.length > 0) {
-    cartStatus.textContent = "Contenu de votre panier :";
+    cartStatus.textContent = "Contenu de votre panier";
     // crée une ligne pour chaque produit du panier
     cartContent.forEach(product => {
-      tr = document.createElement("tr");
+      tableRow = document.createElement("div");
+      tableRow.className = "row border-top py-2";
       // crée une cellule avec l'image et l'intègre à la ligne
-      const tdImage = document.createElement("td");
+      const imageCell = document.createElement("div");
+      imageCell.className = "col-3 col-sm-2";
       const productImage = document.createElement("img");
       productImage.src = product.image;
-      productImage.width = 50;
-      tdImage.appendChild(productImage);
-      tr.appendChild(tdImage);
+      productImage.width = 60;
+      imageCell.appendChild(productImage);
+      tableRow.appendChild(imageCell);
       // crée une cellule avec le nom et l'option et l'intègre à la ligne
-      generateTd(product.name+" ("+product.option+")");
+      generateCell(product.name+" ("+product.option+")", "9 col-sm-5");
+      // génère un retour à la ligne, sauf pour les écrans plus grands que sm
+      const breakLine = document.createElement("div");
+      breakLine.className = "w-100 d-none d-sm-block";
       // crée une cellule avec le prix et l'intègre à la ligne
-      generateTd((product.price).toFixed(2)+"€", "right");
+      generateCell((product.price).toFixed(2)+"€", "7 col-sm-2", "right");
       // crée une cellule avec un bouton delete et l'intègre à la ligne
-      generateTdDelete(product.key);
+      generateCellDelete(product.key);
       // intègre la ligne au tableau
-      cartTable.appendChild(tr);
+      cartTable.appendChild(breakLine);
+      cartTable.appendChild(tableRow);
       // met à jour le montant du panier
       totalPrice += product.price;
     });
@@ -112,14 +121,14 @@ const displayCartContent = () => {
 const displayLastRow = () => {
   if(totalPrice) {
     // génère le total
-    tr = document.createElement("tr");
-    generateTd("Total");
-    generateTd("");
-    generateTd(totalPrice.toFixed(2)+"€", "right");
+    tableRow = document.createElement("div");
+    tableRow.className = "row border-top py-2";
+    generateCell("Total", "3");
+    generateCell(totalPrice.toFixed(2)+"€","4 col-sm-6", "right");
     // crée le bouton pour vider le panier
-    generateTdEmptyCart();
+    generateCellEmptyCart();
     // affiche la ligne avec le total et le bouton pour vider le panier
-    cartTable.appendChild(tr);
+    cartTable.appendChild(tableRow);
   };
 }
 
