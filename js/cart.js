@@ -111,9 +111,10 @@ const displayCartContent = () => {
       totalPrice += product.price;
     });
   } else {
-    // si le panier est vide, adapte le message et n'affiche pas le bouton de commande
+    // si le panier est vide, adapte le message et n'affiche pas le bouton de commande ni le formulaire
     cartStatus.textContent = "Votre panier est vide";
     order.style.display = "none";
+    orderFormContainer.style.display = "none";
   };
 }
 
