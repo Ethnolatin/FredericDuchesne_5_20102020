@@ -14,6 +14,7 @@
       <div class="bg-dark">
         <div class="container">
           <div class="row">
+            <!-- barre de navigation -->
             <nav class="col navbar navbar-expand-lg navbar-dark">
               <a class="navbar-brand" href="../index.html">Orinoak by Orinoco</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
@@ -41,11 +42,15 @@
         <h1 id="cartStatus" class="h2"></h1>
         <div class="row">
           <table class="table">
-            <tbody id="cartTable"></tbody>
+            <tbody id="cartTable">
+              <!-- emplacement du tableau avec les éléments du panier -->
+            </tbody>
           </table>      
         </div>
         <div class="row">
-          <div class="col" id="order"></div>
+          <div class="col" id="order">
+            <!-- emplacement du bouton d'affichage du formulaire de commande -->
+          </div>
         </div>
       </section>
 
@@ -53,9 +58,11 @@
         <h2>Formulaire de commande</h2>
         <p>Merci de remplir tous les champs avant de valider</p>
 
-        <form id=orderForm>
+      <!-- formulaire de commande -->
+      <form id=orderForm>
           <div class="row">
-            <div class="form-group col-md-6">
+        <!-- champ prénom -->
+        <div class="form-group col-md-6">
               <label for="firstName">Prénom</label>
               <input
                 type="text"
@@ -66,7 +73,8 @@
                 required
               >
             </div>
-            <div class="form-group col-md-6">
+        <!-- champ nom -->
+        <div class="form-group col-md-6">
               <label for="lastName">Nom</label>
               <input
                 type="text"
@@ -80,7 +88,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+        <!-- champ adresse -->
+        <div class="form-group col-md-6">
               <label for="address">Adresse</label>
               <input
                 type="text"
@@ -92,7 +101,8 @@
                 required
               >
             </div>
-            <div class="form-group col-md-6">
+        <!-- champ ville -->
+        <div class="form-group col-md-6">
               <label for="city">Ville</label>
               <input
                 type="text"
@@ -106,7 +116,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+        <!-- champ e-mail -->
+        <div class="form-group col-md-6">
               <label for="email">e-mail</label>
               <input
                 type="email"
@@ -120,7 +131,8 @@
               >
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitBtn">Valider</button>
+        <!-- bouton de validation -->
+        <button type="submit" class="btn btn-primary" id="submitBtn">Valider</button>
         </form>
       </section>
     </main>

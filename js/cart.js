@@ -54,7 +54,7 @@ const createOrderBtn = () => {
     orderFormContainer.style.display = "block";
   });
   order.appendChild(orderBtn)
-  // si le panier n'est pas vide, affiche le bouton de commande
+  // affiche le bouton si le panier n'est pas vide
   if(totalPrice) {
     order.style.display = "block";
   }
@@ -68,14 +68,15 @@ const generateTd = (data, align) => {
   tr.appendChild(td);
 }
 
-// s'il n'est pas vide, affiche le panier et adapte le titre
+// si le panier n'est pas vide, affiche son contenu
 const displayCartContent = () => {
-  totalPrice = 0;
-  let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
   // réinitialise l'affichage de la liste des produits dans le panier
   while (cartTable.firstChild) {
     cartTable.removeChild(cartTable.lastChild);
   }
+  totalPrice = 0;
+  // récupère le contenu du panier
+  let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
   // si le panier n'est pas vide
   if (cartContent.length > 0) {
     cartStatus.textContent = "Contenu de votre panier :";
@@ -107,7 +108,7 @@ const displayCartContent = () => {
   };
 }
 
-// si le panier n'est pas vide, affiche le total et le bouton pour vider le panier
+// si le panier n'est pas vide, affiche en dernière ligne le total et le bouton pour le vider
 const displayLastRow = () => {
   if(totalPrice) {
     // génère le total
@@ -134,6 +135,7 @@ const contact = {
 // génère le tableau products à envoyer au serveur
 const products = () => {
   const productList = []
+  // récupère les produits dans localStorage et ajoute leur id à la liste
   let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
   cartContent.forEach((product) => {
     productList.push(product.id);
@@ -150,7 +152,7 @@ const orderData = {
 // validation du formulaire de commande
 const validateOrder = () => {
   submitBtn.addEventListener("click", (event) => {
-    // si les champs sont validés, envoyer la requête au serveur
+    // au click, si les champs sont validés, envoyer la requête au serveur
     if (orderForm.checkValidity()) {
       ajaxPost("http://localhost:3000/api/furniture/order", orderData)
         .then((response) => {
@@ -159,14 +161,17 @@ const validateOrder = () => {
           // affiche la page confirmation
           location = "../html/confirmation.html?id=" + response.orderId + "&price=" + totalPrice;
         })
+        // en cas de problème de liaison avec le serveur, affiche un message
         .catch((err) => {
           alert(err);
         });
+      // annule l'envoi du formulaire par défaut
       event.preventDefault();
     };
   });
 };
 
+// génère la page
 function pageLayout() {
   displayCartContent();
   displayLastRow();

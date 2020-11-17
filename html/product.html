@@ -14,7 +14,8 @@
     <div class="bg-dark">
       <div class="container">
         <div class="row">
-          <nav class="col navbar navbar-expand-lg navbar-dark">
+            <!-- barre de navigation -->
+            <nav class="col navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="../index.html">Orinoak by Orinoco</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
               <span class="navbar-toggler-icon"></span>
@@ -37,25 +38,32 @@
 
   <main class="container">
     <section class="card mx-auto">
-      <img class="card-img-top" src="" alt="Photo du produit">
+          <!-- image du produit -->
+          <img class="card-img-top" src="" alt="Photo du produit">
       <div class="card-body">
         <div class="card-title">
           <div class="row">
-            <h1 class="col col-7 h4" id=name></h1>
-            <div class="col col-5 h5" id="price"></div>
+          <!-- nom du produit -->
+          <h1 class="col col-7 h4" id=name></h1>
+          <!-- prix du produit -->
+          <div class="col col-5 h5" id="price"></div>
           </div>
         </div>
         <div class="card-text">
+          <!-- description du produit -->
           <p id="description"></p>
+          <!-- sélecteur de l'option (vernis) -->
           <div class="input-group px-0 col-10 col-sm-8 col-md-6 col-lg-4">
             <div class="input-group-prepend">
               <label class="input-group-text" for="varnish">Vernis :</label>
             </div>
-            <select name="varnish" class="custom-select" id="varnish">
+          <select name="varnish" class="custom-select" id="varnish">
               <option id="selected" selected>choisissez...</option>
             </select>
           </div>
+          <!-- bouton d'ajout au panier -->
           <button type="button" class="btn btn-success float-right" id="addToCart">Ajouter au panier</button>
+          <!-- message si option (vernis) non choisie -->
           <p id="varnishMissing" class="p-2 text-danger">Veuillez choisir un vernis</p>
         </div>
       </div>

@@ -1,5 +1,4 @@
 // Exécute un appel AJAX GET
-
 function ajaxGet(url) {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
@@ -19,7 +18,6 @@ function ajaxGet(url) {
 
 
 // Exécute un appel AJAX POST
-
 function ajaxPost(url, data) {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
