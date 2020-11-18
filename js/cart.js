@@ -60,7 +60,7 @@ const createOrderBtn = () => {
   // affiche le bouton si le panier n'est pas vide
   if(totalPrice) {
     order.style.display = "block";
-  }
+  } 
 }
 
 // crée une cellule et l'intègre à la ligne
@@ -169,11 +169,11 @@ const validateOrder = () => {
           // efface le contenu du panier
           localStorage.setItem("cart", "[]");
           // affiche la page confirmation
-          location = "../html/confirmation.html?id=" + response.orderId + "&price=" + totalPrice;
+          window.location = "../html/confirmation.html?id=" + response.orderId + "&price=" + totalPrice;
         })
         // en cas de problème de liaison avec le serveur, affiche un message
         .catch((err) => {
-          alert(err);
+          alert("Erreur : " + err);
         });
       // annule l'envoi du formulaire par défaut
       event.preventDefault();

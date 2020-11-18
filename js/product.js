@@ -57,9 +57,5 @@ ajaxGet(request())
   })
   // en cas de problème de liaison avec le serveur, affiche un message
   .catch((err) => {
-    alert(err);
+    alert("Erreur : " + err);
   });
-  
-
-
-
