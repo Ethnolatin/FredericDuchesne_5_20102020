@@ -29,6 +29,7 @@ const generateCellDelete = (key) => {
     let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
     const newCartContent = cartContent.filter(item => item.key != key);
     localStorage.setItem("cart", JSON.stringify(newCartContent));
+    quantity();
     displayCartContent();
     displayLastRow();
   });
@@ -44,6 +45,7 @@ const generateCellEmptyCart = () => {
     tableRow.appendChild(emptyCartBtnCell);
     emptyCartBtn.addEventListener("click", () => {
       localStorage.setItem("cart", "[]");
+      quantity();
       displayCartContent();
     });
   }

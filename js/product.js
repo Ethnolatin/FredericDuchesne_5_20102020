@@ -1,5 +1,5 @@
 // déclaration des variables
-const productImage = document.getElementsByTagName("img")[0];
+const productImage = document.getElementById("image");
 const productName = document.getElementById("name");
 const productPrice = document.getElementById("price");
 const productDescription = document.getElementById("description");
@@ -51,6 +51,7 @@ ajaxGet(request())
         let cartContent = JSON.parse(localStorage.getItem("cart"))||[];
         cartContent.push(addedProduct);
         localStorage.setItem("cart", JSON.stringify(cartContent));
+        quantity();
         alert("Produit ajouté au panier");
       };
     });
